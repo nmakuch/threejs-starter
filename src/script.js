@@ -1,5 +1,6 @@
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/Addons.js'
+import { Timer } from 'three/examples/jsm/Addons.js'
 
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
@@ -53,11 +54,13 @@ renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
 // Animation Loop
-const clock = new THREE.Clock()
+const timer = new Timer()
 
-const animationLoop = () =>
+const AnimationLoop = () =>
 {
-    const elapsedTime = clock.getElapsedTime()
+    // Timer
+    timer.update()
+    const elapsedTime = timer.getElapsed()
 
     // Update controls
     controls.update()
@@ -66,7 +69,7 @@ const animationLoop = () =>
     renderer.render(scene, camera)
 
     // Call tick again on the next frame
-    window.requestAnimationFrame(animationLoop)
+    window.requestAnimationFrame(AnimationLoop)
 }
 
-animationLoop()
+AnimationLoop()
